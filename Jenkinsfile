@@ -39,5 +39,11 @@ pipeline {
   }
 
   post {
-    success {
-      echo "✅ Docker image pushed: $IMAGE_NA_
+  success {
+    echo "✅ Docker image pushed: $IMAGE_NAME:$IMAGE_TAG"
+  }
+  failure {
+    echo "❌ Build or push failed. Check logs."
+  }
+}
+
