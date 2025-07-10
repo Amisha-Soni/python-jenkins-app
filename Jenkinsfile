@@ -2,7 +2,7 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = 'amisha0704/python-app'
+    IMAGE_NAME = 'amisha0704/python-jenkins-app'
     IMAGE_TAG = 'latest'
   }
 
