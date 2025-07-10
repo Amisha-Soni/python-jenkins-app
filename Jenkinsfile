@@ -2,14 +2,13 @@ pipeline {
   agent any
 
   environment {
-    IMAGE_NAME = 'amisha0704/python-app'  // ⬅️ Replace with your Docker Hub repo name
+    IMAGE_NAME = 'amishasoni/python-app'
     IMAGE_TAG = 'latest'
   }
 
   stages {
     stage('Checkout') {
       steps {
-        // Jenkins will checkout the repo automatically in Pipeline jobs
         echo "Checking out source code..."
       }
     }
@@ -21,11 +20,10 @@ pipeline {
       }
     }
 
-    stage('Push Docker Image') {
+    stage('Push to Docker Hub') {
       steps {
-        echo "Pushing Docker image to Docker Hub..."
         withCredentials([usernamePassword(
-          credentialsId: 'dockerhub',           // ⬅️ Must match Jenkins credentials ID
+          credentialsId: 'dockerhub',
           usernameVariable: 'DOCKER_USER',
           passwordVariable: 'DOCKER_PASS'
         )]) {
@@ -39,11 +37,11 @@ pipeline {
   }
 
   post {
-  success {
-    echo "✅ Docker image pushed: $IMAGE_NAME:$IMAGE_TAG"
-  }
-  failure {
-    echo "❌ Build or push failed. Check logs."
+    success {
+      echo "✅ Docker image pushed: $IMAGE_NAME:$IMAGE_TAG"
+    }
+    failure {
+      echo "❌ Build or push failed. Check logs."
+    }
   }
 }
-
